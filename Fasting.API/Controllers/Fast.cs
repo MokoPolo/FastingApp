@@ -1,3 +1,11 @@
-﻿namespace Fasting.API;
+﻿using Microsoft.AspNetCore.Mvc;
 
-public class Fast { }
+namespace Fasting.API;
+
+public class Fast : ControllerBase
+{
+    public IActionResult HelloWorld()
+    {
+        return Ok("Hello, World!");
+    }
+}
