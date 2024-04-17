@@ -1,0 +1,7 @@
+ef migrations add "Create table ding dang" 
+dotnet ef database update  
+
+
+
+dotnet ef migrations add "Creating auth db" --context "NzWalksAuthDbContext" 
+dotnet ef database update --context "NzWalksAuthDbContext" 
