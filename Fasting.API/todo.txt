@@ -1,0 +1,9 @@
+start/stop fast
+create dto
+    // Don't forget
+    // Required
+    // Min
+    // Max
+create repo
+create controller methods
+unit tests

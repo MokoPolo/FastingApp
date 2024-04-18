@@ -8,4 +8,11 @@ public class Fast : ControllerBase
     {
         return Ok("Hello, World!");
     }
+
+    // Create fast
+    [HttpPost]
+    public async Task<IActionResult> StartFastAsync()
+    {
+        return Ok("Fast started");
+    }
 }
