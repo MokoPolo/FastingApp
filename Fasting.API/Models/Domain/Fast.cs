@@ -7,5 +7,5 @@ public class Fast
     public DateTime End { get; set; }
 
     public Duration? Duration { get; set; }
-    public int FastId { get; set; }
+    public int Id { get; set; }
 }

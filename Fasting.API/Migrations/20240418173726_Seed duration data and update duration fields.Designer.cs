@@ -4,6 +4,7 @@ using Fasting.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fasting.API.Migrations
 {
     [DbContext(typeof(FastingDbContext))]
-    partial class FastingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240418173726_Seed duration data and update duration fields")]
+    partial class Seeddurationdataandupdatedurationfields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,11 +91,11 @@ namespace Fasting.API.Migrations
 
             modelBuilder.Entity("Fasting.API.Models.Domain.Fast", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("FastId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FastId"));
 
                     b.Property<int?>("DurationId")
                         .HasColumnType("int");
@@ -103,7 +106,7 @@ namespace Fasting.API.Migrations
                     b.Property<DateTime>("Start")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("FastId");
 
                     b.HasIndex("DurationId");
 
