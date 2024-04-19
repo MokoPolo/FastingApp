@@ -1,4 +1,6 @@
+using Fasting.API;
 using Fasting.API.Data;
+using Fasting.API.Mappings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,10 +13,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddScoped<IFastingRepository, FastingRepository>();
 builder.Services.AddDbContext<FastingDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FastingConnectionString"))
 );
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
 var app = builder.Build();
 
