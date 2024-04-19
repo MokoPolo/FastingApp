@@ -8,9 +8,9 @@ public class FastingDbContext : DbContext
     public FastingDbContext(DbContextOptions<FastingDbContext> options)
         : base(options) { }
 
-    public DbSet<Fasting.API.Models.Domain.Fast> Fasts { get; set; }
+    public DbSet<FastDomain> Fasts { get; set; }
 
-    public DbSet<Duration> Durations { get; set; }
+    public DbSet<DurationDomain> Durations { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -23,45 +23,45 @@ public class FastingDbContext : DbContext
     private void SeedData(ModelBuilder modelBuilder)
     {
         modelBuilder
-            .Entity<Duration>()
+            .Entity<DurationDomain>()
             .HasData(
-                new Duration
+                new DurationDomain
                 {
                     Id = 1,
                     Name = "12",
                     Length = 12
                 },
-                new Duration
+                new DurationDomain
                 {
                     Id = 2,
                     Name = "16",
                     Length = 16
                 },
-                new Duration
+                new DurationDomain
                 {
                     Id = 3,
                     Name = "18",
                     Length = 18
                 },
-                new Duration
+                new DurationDomain
                 {
                     Id = 4,
                     Name = "72",
                     Length = 72
                 },
-                new Duration
+                new DurationDomain
                 {
                     Id = 5,
                     Name = "84",
                     Length = 84
                 },
-                new Duration
+                new DurationDomain
                 {
                     Id = 6,
                     Name = "96",
                     Length = 96
                 },
-                new Duration { Id = 7, Name = "Custom" }
+                new DurationDomain { Id = 7, Name = "Custom" }
             );
     }
 }
