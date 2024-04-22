@@ -8,10 +8,13 @@ public class FastingDbContext : DbContext
     // public FastingDbContext()
     //     : base() { }
 
+    public FastingDbContext()
+        : base() { }
+
     public FastingDbContext(DbContextOptions<FastingDbContext> options)
         : base(options) { }
 
-    public DbSet<FastDomain> Fasts { get; set; }
+    public virtual DbSet<FastDomain> Fasts { get; set; }
 
     public DbSet<DurationDomain> Durations { get; set; }
 
