@@ -13,7 +13,7 @@ var logger = new LoggerConfiguration().WriteTo.Console().MinimumLevel.Informatio
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(x => x.SuppressAsyncSuffixInActionNames = false);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

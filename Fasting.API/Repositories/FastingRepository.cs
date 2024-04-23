@@ -1,5 +1,6 @@
 ﻿using Fasting.API.Data;
 using Fasting.API.Models.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fasting.API;
 
@@ -29,6 +30,16 @@ public class FastingRepository : IFastingRepository
             _logger.LogError(ex, "Error creating fast");
             throw;
         }
+    }
+
+    public async Task<List<FastDomain>> GetAllAsync()
+    {
+        return await _dbContext.Fasts.ToListAsync();
+    }
+
+    public async Task<FastDomain?> GetByIdAsync(int id)
+    {
+        return await _dbContext.Fasts.FirstOrDefaultAsync(f => f.Id == id);
     }
 
     public async Task<FastDomain?> UpdateAsync(int id, FastDomain fast)
