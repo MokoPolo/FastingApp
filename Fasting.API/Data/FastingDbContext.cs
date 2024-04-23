@@ -5,9 +5,6 @@ namespace Fasting.API.Data;
 
 public class FastingDbContext : DbContext
 {
-    // public FastingDbContext()
-    //     : base() { }
-
     public FastingDbContext()
         : base() { }
 

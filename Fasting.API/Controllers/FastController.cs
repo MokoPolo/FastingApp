@@ -18,7 +18,6 @@ public class FastController : ControllerBase
         this.fastingRepository = fastingRepository;
     }
 
-    // Create fast
     [HttpPost]
     public async Task<IActionResult> CreateFastAsync([FromBody] AddFastRequestDto addFastRequestDto)
     {
@@ -33,13 +32,36 @@ public class FastController : ControllerBase
 
         FastDto fastResponseDto = mapper.Map<FastDto>(fastDomain);
 
-        // Change this to createdAt
-        return Ok(fastResponseDto);
-
-        // return CreatedAtAction(nameof(GetFast), new { id = fastResponseDto.Id }, fastResponseDto);
+        return CreatedAtAction(
+            nameof(GetFastByIdAsync),
+            new { id = fastResponseDto.Id },
+            fastResponseDto
+        );
     }
 
-    // Code getAll
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetFastByIdAsync(int id)
+    {
+        var fast = await fastingRepository.GetByIdAsync(id);
 
-    // Code get by id
+        if (fast == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(mapper.Map<FastDto>(fast));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllAsync()
+    {
+        var fasts = await fastingRepository.GetAllAsync();
+
+        if (fasts == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(mapper.Map<List<FastDto>>(fasts));
+    }
 }

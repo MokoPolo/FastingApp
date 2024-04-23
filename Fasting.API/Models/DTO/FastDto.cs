@@ -6,4 +6,6 @@ public class FastDto
 
     // public DateTime End { get; set; }
     public required int Duration { get; set; }
+
+    public required int Id { get; set; }
 }
