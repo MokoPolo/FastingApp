@@ -34,12 +34,30 @@ public class FastingRepository : IFastingRepository
 
     public async Task<List<FastDomain>> GetAllAsync()
     {
-        return await _dbContext.Fasts.ToListAsync();
+        try
+        {
+            _logger.LogInformation("Get all fasts");
+            return await _dbContext.Fasts.ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting all fasts");
+            throw;
+        }
     }
 
     public async Task<FastDomain?> GetByIdAsync(int id)
     {
-        return await _dbContext.Fasts.FirstOrDefaultAsync(f => f.Id == id);
+        try
+        {
+            _logger.LogInformation("Get fast by ID");
+            return await _dbContext.Fasts.FirstOrDefaultAsync(f => f.Id == id);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting fast by ID");
+            throw;
+        }
     }
 
     public async Task<FastDomain?> UpdateAsync(int id, FastDomain fast)
