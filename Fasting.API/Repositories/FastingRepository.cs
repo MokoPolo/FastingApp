@@ -5,24 +5,28 @@ namespace Fasting.API;
 
 public class FastingRepository : IFastingRepository
 {
-    private readonly FastingDbContext dbContext;
+    private readonly FastingDbContext _dbContext;
+    private readonly ILogger<FastingRepository> _logger;
 
-    public FastingRepository(FastingDbContext context)
+    public FastingRepository(FastingDbContext context, ILogger<FastingRepository> logger)
     {
-        dbContext = context;
+        _dbContext = context;
+        _logger = logger;
     }
 
     public async Task<FastDomain> CreateAsync(FastDomain fast)
     {
-        await dbContext.Fasts.AddAsync(fast);
-        await dbContext.SaveChangesAsync();
+        _logger.LogInformation("Creating fast");
+        await _dbContext.Fasts.AddAsync(fast);
+        await _dbContext.SaveChangesAsync();
 
         return fast;
     }
 
     public async Task<FastDomain?> UpdateAsync(int id, FastDomain fast)
     {
-        var existingFast = dbContext.Fasts.FirstOrDefault(f => fast.Id == id);
+        _logger.LogInformation("Updating fast");
+        var existingFast = _dbContext.Fasts.FirstOrDefault(f => fast.Id == id);
 
         if (existingFast == null)
         {
@@ -33,7 +37,7 @@ public class FastingRepository : IFastingRepository
         existingFast.End = fast.End;
         existingFast.Duration = fast.Duration;
 
-        await dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
 
         return existingFast;
     }
