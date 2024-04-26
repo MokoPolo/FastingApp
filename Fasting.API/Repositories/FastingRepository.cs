@@ -9,6 +9,11 @@ public class FastingRepository : IFastingRepository
     private readonly FastingDbContext _dbContext;
     private readonly ILogger<FastingRepository> _logger;
 
+    private void LogInformation(string v)
+    {
+        _logger.LogInformation(v);
+    }
+
     public FastingRepository(FastingDbContext context, ILogger<FastingRepository> logger)
     {
         _dbContext = context;
@@ -20,6 +25,7 @@ public class FastingRepository : IFastingRepository
         try
         {
             _logger.LogInformation("Creating fast");
+            _logger.LogInformation("Message for commit 2");
             await _dbContext.Fasts.AddAsync(fast);
             await _dbContext.SaveChangesAsync();
 
