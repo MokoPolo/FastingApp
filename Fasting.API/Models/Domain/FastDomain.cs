@@ -10,4 +10,5 @@ public class FastDomain
     public int Id { get; set; }
     // 1
     // 2
+    // 3
 }
