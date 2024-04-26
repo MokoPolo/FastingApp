@@ -5,3 +5,10 @@ dotnet ef database update
 
 dotnet ef migrations add "Creating auth db" --context "NzWalksAuthDbContext" 
 dotnet ef database update --context "NzWalksAuthDbContext" 
+
+
+I added 4 lines
+Line 1
+Line 2
+Line 3
+Line 4
