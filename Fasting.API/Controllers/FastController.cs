@@ -24,6 +24,11 @@ public class FastController : ControllerBase
         this._logger = logger;
     }
 
+    private void LogInformation(string message)
+    {
+        _logger.LogInformation(message);
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateFastAsync([FromBody] AddFastRequestDto addFastRequestDto)
     {
