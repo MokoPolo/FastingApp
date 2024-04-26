@@ -3,7 +3,12 @@ dotnet ef database update
 
 
 
+// Feature branch 4 note 1
+// Feature branch 4 note 2
+// Feature branch 4 note 3
+// Feature branch 4 note 4
 dotnet ef migrations add "Creating auth db" --context "NzWalksAuthDbContext" 
+// It's the weekend!
 Change for commit 2
 dotnet ef database update --context "NzWalksAuthDbContext" 
 
@@ -13,3 +18,7 @@ Line 1
 Line 2
 Line 3
 Line 4
+// Feature branch 4 note 1
+// Feature branch 4 note 2
+// Feature branch 4 note 3
+// Feature branch 4 note 4

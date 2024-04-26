@@ -24,8 +24,10 @@ public class FastingRepository : IFastingRepository
     {
         try
         {
+            _logger.LogInformation("Feature branch commit 2");
             _logger.LogInformation("Creating fast");
             _logger.LogInformation("Message for commit 2");
+            _logger.LogInformation("Feature branch commit 2 hey hey");
             await _dbContext.Fasts.AddAsync(fast);
             await _dbContext.SaveChangesAsync();
 
@@ -36,6 +38,11 @@ public class FastingRepository : IFastingRepository
             _logger.LogError(ex, "Error creating fast");
             throw;
         }
+    }
+
+    private void TestMethod()
+    {
+        _logger.LogInformation("Feature branch 4 commit 2");
     }
 
     public async Task<List<FastDomain>> GetAllAsync()
