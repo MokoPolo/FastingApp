@@ -9,6 +9,11 @@ public class FastingRepository : IFastingRepository
     private readonly FastingDbContext _dbContext;
     private readonly ILogger<FastingRepository> _logger;
 
+    private void LogInformation(string v)
+    {
+        _logger.LogInformation(v);
+    }
+
     public FastingRepository(FastingDbContext context, ILogger<FastingRepository> logger)
     {
         _dbContext = context;
