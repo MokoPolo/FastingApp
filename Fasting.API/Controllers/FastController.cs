@@ -9,13 +9,19 @@ namespace Fasting.API;
 [Route("api/[controller]")]
 public class FastController : ControllerBase
 {
-    private readonly IMapper mapper;
-    private readonly IFastingRepository fastingRepository;
+    private readonly IMapper _mapper;
+    private readonly IFastingRepository _fastingRepository;
+    private readonly ILogger<FastController> _logger;
 
-    public FastController(IMapper mapper, IFastingRepository fastingRepository)
+    public FastController(
+        IMapper mapper,
+        IFastingRepository fastingRepository,
+        ILogger<FastController> logger
+    )
     {
-        this.mapper = mapper;
-        this.fastingRepository = fastingRepository;
+        this._mapper = mapper;
+        this._fastingRepository = fastingRepository;
+        this._logger = logger;
     }
 
     [HttpPost]
@@ -26,11 +32,11 @@ public class FastController : ControllerBase
             return BadRequest();
         }
 
-        var fastDomain = mapper.Map<FastDomain>(addFastRequestDto);
+        var fastDomain = _mapper.Map<FastDomain>(addFastRequestDto);
 
-        fastDomain = await fastingRepository.CreateAsync(fastDomain);
+        fastDomain = await _fastingRepository.CreateAsync(fastDomain);
 
-        FastDto fastResponseDto = mapper.Map<FastDto>(fastDomain);
+        FastDto fastResponseDto = _mapper.Map<FastDto>(fastDomain);
 
         return CreatedAtAction(
             nameof(GetFastByIdAsync),
@@ -42,26 +48,49 @@ public class FastController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetFastByIdAsync(int id)
     {
-        var fast = await fastingRepository.GetByIdAsync(id);
+        var fast = await _fastingRepository.GetByIdAsync(id);
 
         if (fast == null)
         {
             return NotFound();
         }
 
-        return Ok(mapper.Map<FastDto>(fast));
+        return Ok(_mapper.Map<FastDto>(fast));
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {
-        var fasts = await fastingRepository.GetAllAsync();
+        var fasts = await _fastingRepository.GetAllAsync();
 
         if (fasts == null)
         {
             return NotFound();
         }
 
-        return Ok(mapper.Map<List<FastDto>>(fasts));
+        return Ok(_mapper.Map<List<FastDto>>(fasts));
     }
+
+    // end fast
+    // [HttpPut("{id}")]
+    // public async Task<IActionResult> UpdateFastAsync(int id)
+    // {
+    //     // if (updateFastRequestDto == null)
+    //     // {
+    //     //     return BadRequest();
+    //     // }
+
+    //     var fast = await fastingRepository.GetByIdAsync(id);
+
+    //     if (fast == null)
+    //     {
+    //         return NotFound();
+    //     }
+
+    //     mapper.Map(updateFastRequestDto, fast);
+
+    //     fast = await fastingRepository.UpdateAsync(id, fast);
+
+    //     return Ok(mapper.Map<FastDto>(fast));
+    // }
 }
