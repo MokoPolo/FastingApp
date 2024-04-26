@@ -4,6 +4,7 @@ dotnet ef database update
 
 
 dotnet ef migrations add "Creating auth db" --context "NzWalksAuthDbContext" 
+Change for commit 2
 dotnet ef database update --context "NzWalksAuthDbContext" 
 
 
