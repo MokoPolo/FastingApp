@@ -8,4 +8,5 @@ public class FastDomain
 
     public int Duration { get; set; }
     public int Id { get; set; }
+    // 1
 }
