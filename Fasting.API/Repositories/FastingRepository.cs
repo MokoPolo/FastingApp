@@ -25,6 +25,7 @@ public class FastingRepository : IFastingRepository
         try
         {
             _logger.LogInformation("Creating fast");
+            _logger.LogInformation("Message for commit 2");
             await _dbContext.Fasts.AddAsync(fast);
             await _dbContext.SaveChangesAsync();
 
