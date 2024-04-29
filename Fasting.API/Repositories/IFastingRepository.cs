@@ -8,5 +8,5 @@ public interface IFastingRepository
     Task<List<FastDomain>> GetAllAsync();
 
     Task<FastDomain?> GetByIdAsync(int id);
-    Task<FastDomain?> UpdateAsync(int id, FastDomain fast);
+    Task<FastDomain?> UpdateAsync(FastDomain fast);
 }
