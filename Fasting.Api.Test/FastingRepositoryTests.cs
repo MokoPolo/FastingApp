@@ -4,6 +4,7 @@ using Fasting.API;
 using Fasting.API.Data;
 using Fasting.API.Models.Domain;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Moq.EntityFrameworkCore;
 using Xunit;
@@ -14,11 +15,13 @@ public class FastingRepositoryTests
 {
     private readonly Mock<FastingDbContext> dbContextMock;
     private readonly FastingRepository fastingRepository;
+    private readonly Mock<ILogger<FastingRepository>> loggerMock;
 
     public FastingRepositoryTests()
     {
         dbContextMock = new Mock<FastingDbContext>();
-        fastingRepository = new FastingRepository(dbContextMock.Object);
+        loggerMock = new Mock<ILogger<FastingRepository>>();
+        fastingRepository = new FastingRepository(dbContextMock.Object, loggerMock.Object);
     }
 
     [Fact]
@@ -29,7 +32,7 @@ public class FastingRepositoryTests
 
         dbContextMock.Setup(x => x.Fasts).Returns(dbSetMock.Object);
 
-        var repo = new FastingRepository(dbContextMock.Object);
+        var repo = new FastingRepository(dbContextMock.Object, loggerMock.Object);
 
         var result = await repo.CreateAsync(fastDomain);
 
@@ -109,7 +112,7 @@ public class FastingRepositoryTests
         mockContext.Setup(c => c.Fasts).ReturnsDbSet(data);
 
         // Act
-        var service = new FastingRepository(mockContext.Object);
+        var service = new FastingRepository(mockContext.Object, loggerMock.Object);
         var fasts = await service.GetAllAsync();
 
         // Assert
@@ -133,7 +136,7 @@ public class FastingRepositoryTests
         mockContext.Setup(c => c.Fasts).ReturnsDbSet(data);
 
         // Act
-        var service = new FastingRepository(mockContext.Object);
+        var service = new FastingRepository(mockContext.Object, loggerMock.Object);
         var fast = await service.GetByIdAsync(2);
 
         // Assert
