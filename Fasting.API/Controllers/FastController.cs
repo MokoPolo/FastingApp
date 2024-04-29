@@ -22,15 +22,6 @@ public class FastController : ControllerBase
         this._mapper = mapper;
         this._fastingRepository = fastingRepository;
         this._logger = logger;
-        // hey 1
-        // hey 2
-        // hey 3
-        // hey 4
-    }
-
-    private void LogInformation(string message)
-    {
-        _logger.LogInformation(message);
     }
 
     [HttpPost]
@@ -80,26 +71,20 @@ public class FastController : ControllerBase
         return Ok(_mapper.Map<List<FastDto>>(fasts));
     }
 
-    // end fast
-    // [HttpPut("{id}")]
-    // public async Task<IActionResult> UpdateFastAsync(int id)
-    // {
-    //     // if (updateFastRequestDto == null)
-    //     // {
-    //     //     return BadRequest();
-    //     // }
+    [HttpPut("{id}")]
+    public async Task<IActionResult> EndFastAsync(int id)
+    {
+        var fast = await _fastingRepository.GetByIdAsync(id);
 
-    //     var fast = await fastingRepository.GetByIdAsync(id);
+        if (fast == null)
+        {
+            return NotFound();
+        }
 
-    //     if (fast == null)
-    //     {
-    //         return NotFound();
-    //     }
+        fast.End = DateTime.Now;
 
-    //     mapper.Map(updateFastRequestDto, fast);
+        fast = await _fastingRepository.UpdateAsync(fast);
 
-    //     fast = await fastingRepository.UpdateAsync(id, fast);
-
-    //     return Ok(mapper.Map<FastDto>(fast));
-    // }
+        return Ok(_mapper.Map<FastDto>(fast));
+    }
 }

@@ -73,12 +73,12 @@ public class FastingRepository : IFastingRepository
         }
     }
 
-    public async Task<FastDomain?> UpdateAsync(int id, FastDomain fast)
+    public async Task<FastDomain?> UpdateAsync(FastDomain fast)
     {
         try
         {
             _logger.LogInformation("Updating fast");
-            var existingFast = _dbContext.Fasts.FirstOrDefault(f => fast.Id == id);
+            var existingFast = _dbContext.Fasts.FirstOrDefault(f => f.Id == fast.Id);
 
             if (existingFast == null)
             {
