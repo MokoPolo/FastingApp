@@ -87,4 +87,12 @@ public class FastController : ControllerBase
 
         return Ok(_mapper.Map<FastDto>(fast));
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteFastAsync(int id)
+    {
+        var fast = await _fastingRepository.DeleteAsync(id);
+
+        return fast == null ? NotFound() : NoContent();
+    }
 }
