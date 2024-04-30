@@ -99,4 +99,22 @@ public class FastingRepository : IFastingRepository
             throw;
         }
     }
+
+    public async Task<FastDomain?> DeleteAsync(int id)
+    {
+        _logger.LogInformation("Deleting fast");
+        var fast = this._dbContext.Fasts.FirstOrDefault(x => x.Id == id);
+
+        if (fast != null)
+        {
+            this._dbContext.Fasts.Remove(fast);
+            await this._dbContext.SaveChangesAsync();
+
+            return fast;
+        }
+        else
+        {
+            return null;
+        }
+    }
 }

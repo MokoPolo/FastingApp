@@ -9,4 +9,5 @@ public interface IFastingRepository
 
     Task<FastDomain?> GetByIdAsync(int id);
     Task<FastDomain?> UpdateAsync(FastDomain fast);
+    Task<FastDomain?> DeleteAsync(int id);
 }
